@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <!-- Use title if it's in the page YAML frontmatter -->
+        <title>Mini Game</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="/assets/css/all.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="body-wrap">
+          <h1>Filter...</h1>
+          <form class="filters">
+  <div class="field">
+    <p>Dapil</p>
+    <select name="dapil" id="dapil_id">
+      <option value="1">Jakarta 2</option>
+      <option value="2">Bandung</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <p>Partai</p>
+    <div>
+      <input type="checkbox" id="party_1" name="party_ids[]" value="1" /> <label for="party_1">XXX</label>
+    </div>
+    <div>
+      <input type="checkbox" id="party_2" name="party_ids[]" value="2" /> <label for="party_2">XXX</label>
+    </div>
+    <div>
+      <input type="checkbox" id="party_3" name="party_ids[]" value="3" /> <label for="party_3">XXX</label>
+    </div>
+    <div>
+      <input type="checkbox" id="party_4" name="party_ids[]" value="4" /> <label for="party_4">XXX</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <p>Pendidikan Terakhir</p>
+    <div>
+      <input type="checkbox" id="last_edu_1" name="last_edu_ids[]" value="1" /> <label for="last_edu_1">S1</label>
+    </div>
+    <div>
+      <input type="checkbox" id="last_edu_2" name="last_edu_ids[]" value="2" /> <label for="last_edu_2">S2</label>
+    </div>
+    <div>
+      <input type="checkbox" id="last_edu_3" name="last_edu_ids[]" value="3" /> <label for="last_edu_3">< S1</label>
+    </div>
+    <div>
+      <input type="checkbox" id="last_edu_4" name="last_edu_ids[]" value="4" /> <label for="last_edu_4">N/A</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <p>Tempat pend. terakhir</p>
+    <div>
+      <input type="checkbox" id="last_edu_place_1" name="last_edu_place_ids[]" value="1" /> <label for="last_edu_place_1">Dalam negeri</label>
+    </div>
+    <div>
+      <input type="checkbox" id="last_edu_place_2" name="last_edu_place_ids[]" value="2" /> <label for="last_edu_place_2">Luar negeri</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <p>Anggota legislatif 09-14</p>
+    <div>
+      <input type="checkbox" id="is_member_1" name="is_member[]" value="1"> <label for="is_member_1">Ya</label>
+    </div>
+    <div>
+      <input type="checkbox" id="is_member_2" name="is_member[]" value="2"> <label for="is_member_2">Tidak</label>
+    </div>
+  </div>
+</form>
+
+<div class="results">
+  <h2>Ditemukan 200 Caleg</h2>
+</div>
+
+<div class="people">
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+    <div class="person">
+      <div class="person-name">
+        Ki Hajar Dewantara
+      </div>
+      <div class="person-details">
+        <div class="person-image">
+          <a href="#">
+            <img src="" alt="Foto" />
+          </a>
+        </div>
+        <div class="person-info">
+          <div class="person-info-row">
+            Pendidikan Terakhir
+          </div>
+          <div class="person-info-row">
+            Latar Belakang
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik
+          </div>
+          <div class="person-info-row">
+            Fakta Menarik 2
+          </div>
+          <a href="#">Info lebih lanjut...</a>
+        </div>
+      </div>
+
+      <div class="person-votes">
+        <a href="#" class="btn-like">Suka (101)</a>
+        <a href="#" class="btn-dislike">Tak suka (30)</a>
+      </div>
+    </div>
+  
+</div>
+
+<div class="pagination">
+  Pages:
+  
+    <a href=# class="page">
+      1
+    </a>
+  
+    <a href=# class="page">
+      2
+    </a>
+  
+    <a href=# class="page">
+      3
+    </a>
+  
+    <a href=# class="page">
+      4
+    </a>
+  
+    <a href=# class="page">
+      5
+    </a>
+  
+    <a href=# class="page">
+      6
+    </a>
+  
+    <a href=# class="page">
+      7
+    </a>
+  
+    <a href=# class="page">
+      8
+    </a>
+  
+    <a href=# class="page">
+      9
+    </a>
+  
+    <a href=# class="page">
+      10
+    </a>
+  
+</div>
+
+        </div>
+
+        <script src="/assets/js/all.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
