@@ -1,0 +1,94 @@
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+
+@mixin inline-block-top {
+  display: inline-block;
+  vertical-align: top;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  text-align: center;
+  font-family: Georgia, Times, serif;
+}
+
+.body-wrap {
+  width: 56em;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.filters {
+  margin-bottom: 2em;
+
+  p {
+    font-size: 1.1em;
+    color: #345456;
+    margin: 0 0 0.5em 0; padding: 0;
+  }
+  .field {
+    margin-right: 2em;
+    @include inline-block-top;
+  }
+}
+
+.person {
+  @include inline-block-top;
+  width: 360px;
+  margin: 0 0.8em 1em 0;
+  padding: 1em;
+  border: 1px solid #bbb;
+  @include box-shadow(0 2px 1px #ddd);
+  @include border-radius(3px);
+}
+
+.person-details {
+  margin-bottom: 0.7em;
+}
+
+.person-image {
+  @include inline-block-top;
+  width: 200px;
+  height: 240px;
+  background: #999;
+  margin-right: 0.3em;
+  @include border-radius(3px);
+}
+
+.person-name {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 0.5em 0;
+  margin: 0 0 0.5em 0;
+}
+
+.person-info {
+  @include inline-block-top;
+}
+
+.person-info-row {
+
+}
+
+.btn-dislike, .btn-like, .btn-info {
+  display: inline-block;
+  color: #fff;
+  padding: 0.5em 1em;
+  @include border-radius(3px);
+}
+
+.btn-like {
+  background: #1abc9c;
+  &:hover {
+    background: darken(#1abc9c, 10%);
+  }
+}
+
+.btn-dislike {
+  background: #e74c3c;
+  &:hover {
+    background: darken(#e74c3c, 10%);
+  }
+}
