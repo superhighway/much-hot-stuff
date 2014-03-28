@@ -29,7 +29,6 @@
         %>
 
         <div class="body-wrap"<%= attrPair %>>
-          <h1>Filter...</h1>
           <%= yield %>
         </div>
 
@@ -37,6 +36,7 @@
         <script>window.angular || document.write('<script src="/assets/js/angular-1.2.15.min.js"><\/script>')</script>
         <script src="assets/js/all.js"></script>
 
+<%#
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
@@ -44,5 +44,6 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+%>
     </body>
 </html>

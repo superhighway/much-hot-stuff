@@ -3,11 +3,11 @@ controller: "PeopleController"
 ---
 
 <form class="filters">
-  <div class="field">
+  <div style="margin-bottom: 1.3em;">
     <p>Dapil</p>
     <select name="dapil" id="dapil">
-      <option value="{{ district.id }}" ng-repeat="district in districts">
-        {{ district.nama }}
+      <option value="{{ district.value }}" ng-repeat="district in districts">
+        {{ district.label }}
       </option>
     </select>
   </div>
@@ -25,9 +25,6 @@ controller: "PeopleController"
         {{choice.label}}
       </label>
     </div>
-    <div>
-      <a href="#">Semua</a>
-    </div>
   </div>
 
 </form>
@@ -36,8 +33,20 @@ controller: "PeopleController"
   Memuat...
 </div>
 
+<div ng-show="fetchPeopleState == 'error'">
+  Gagal memuat. Harap refresh browser Anda.
+</div>
+
 <div class="results" ng-show="fetchPeopleState == 'success'">
-  <h2>Ditemukan {{ peopleCount }} Caleg - Halaman {{ currentPage }} dari {{ pageCount }}</h2>
+  <h2>
+    {{ peopleCount }} Caleg - Halaman
+    <select name="page" ng-model="currentPage" ng-change="goToPage(i)">
+      <option value="{{ i }}" ng-repeat="i in pages(pageCount)">
+        {{ i }}
+      </option>
+    </select>
+    dari {{ pageCount }}
+  </h2>
 </div>
 
 <div class="people" ng-show="fetchPeopleState == 'success'">
@@ -48,7 +57,7 @@ controller: "PeopleController"
     <div class="person-details">
       <div class="person-image">
         <a href="#">
-          <img src="{{ person.foto_url }}" alt="Foto {{ person.nama }}" />
+          <img src="{{ person.foto_url }}" alt="{{ person.nama }}" />
         </a>
       </div>
       <div class="person-info">
@@ -71,21 +80,24 @@ controller: "PeopleController"
     <div class="person-votes">
       <a href="#" class="btn-like">
         <img src="assets/img/btn-like.png" />
-        Suka (101)
+        Suka (0)
       </a>
       <a href="#" class="btn-dislike">
         <img src="assets/img/btn-dislike.png" />
-        Tak suka (30)
+        Tak suka (0)
       </a>
     </div>
   </div>
 </div>
 
-<div class="pagination" ng-show="fetchPeopleState == 'success'">
-  Halaman:
-  <select name="page" ng-model="currentPage" id="page" ng-change="goToPage(i)">
-    <option value="{{ i }}" ng-repeat="i in pages(pageCount)">
-      {{ i }}
-    </option>
-  </select>
+<div class="results" ng-show="fetchPeopleState == 'success'">
+  <h2>
+    {{ peopleCount }} Caleg - Halaman
+    <select name="page" ng-model="currentPage" ng-change="goToPage(i)">
+      <option value="{{ i }}" ng-repeat="i in pages(pageCount)">
+        {{ i }}
+      </option>
+    </select>
+    dari {{ pageCount }}
+  </h2>
 </div>
