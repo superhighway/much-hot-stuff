@@ -16,7 +16,7 @@ body {
 }
 
 .body-wrap {
-  width: 56em;
+  width: 960px;
   margin: 0 auto;
   text-align: left;
 }
@@ -37,7 +37,7 @@ body {
 
 .person {
   @include inline-block-top;
-  width: 360px;
+  width: 400px;
   margin: 0 0.8em 1em 0;
   padding: 1em;
   border: 1px solid #bbb;
@@ -51,10 +51,12 @@ body {
 
 .person-image {
   @include inline-block-top;
-  width: 200px;
-  height: 240px;
-  background: #999;
   margin-right: 0.3em;
+  width: 132px;
+  img {
+    height: 200px;
+  }
+  overflow: hidden;
   @include border-radius(3px);
 }
 
@@ -77,10 +79,21 @@ body {
   color: #fff;
   padding: 0.5em 1em;
   @include border-radius(3px);
+
+  img {
+    height: 20px;
+    padding-right: 0.2em;
+    position: relative;
+  }
 }
 
 .btn-like {
   background: #1abc9c;
+
+  img {
+    top: 3px;
+  }
+
   &:hover {
     background: darken(#1abc9c, 10%);
   }
@@ -88,6 +101,11 @@ body {
 
 .btn-dislike {
   background: #e74c3c;
+
+  img {
+    top: 4px;
+  }
+
   &:hover {
     background: darken(#e74c3c, 10%);
   }

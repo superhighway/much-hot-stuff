@@ -1,115 +1,91 @@
 ---
-title: Home
+controller: "PeopleController"
 ---
 
 <form class="filters">
   <div class="field">
     <p>Dapil</p>
-    <select name="dapil" id="dapil_id">
-      <option value="1">Jakarta 2</option>
-      <option value="2">Bandung</option>
+    <select name="dapil" id="dapil">
+      <option value="{{ district.id }}" ng-repeat="district in districts">
+        {{ district.nama }}
+      </option>
     </select>
   </div>
 
-  <div class="field">
-    <p>Partai</p>
-    <div>
-      <input type="checkbox" id="party_1" name="party_ids[]" value="1" /> <label for="party_1">XXX</label>
+
+  <div class="field" ng-repeat="filter in filters">
+    <p>{{ filter.headingName }}</p>
+
+    <div ng-repeat="choice in filter.choices">
+      <input type="checkbox"
+             id="{{ choice.inputPrefix }}{{ choice.value }}"
+             name="{{ choice.inputName }}"
+             value="{{ party.value }}" />
+      <label for="{{ choice.inputPrefix }}{{ choice.value }}">
+        {{choice.label}}
+      </label>
     </div>
     <div>
-      <input type="checkbox" id="party_2" name="party_ids[]" value="2" /> <label for="party_2">XXX</label>
-    </div>
-    <div>
-      <input type="checkbox" id="party_3" name="party_ids[]" value="3" /> <label for="party_3">XXX</label>
-    </div>
-    <div>
-      <input type="checkbox" id="party_4" name="party_ids[]" value="4" /> <label for="party_4">XXX</label>
+      <a href="#">Semua</a>
     </div>
   </div>
 
-  <div class="field">
-    <p>Pendidikan Terakhir</p>
-    <div>
-      <input type="checkbox" id="last_edu_1" name="last_edu_ids[]" value="1" /> <label for="last_edu_1">S1</label>
-    </div>
-    <div>
-      <input type="checkbox" id="last_edu_2" name="last_edu_ids[]" value="2" /> <label for="last_edu_2">S2</label>
-    </div>
-    <div>
-      <input type="checkbox" id="last_edu_3" name="last_edu_ids[]" value="3" /> <label for="last_edu_3">< S1</label>
-    </div>
-    <div>
-      <input type="checkbox" id="last_edu_4" name="last_edu_ids[]" value="4" /> <label for="last_edu_4">N/A</label>
-    </div>
-  </div>
-
-  <div class="field">
-    <p>Tempat pend. terakhir</p>
-    <div>
-      <input type="checkbox" id="last_edu_place_1" name="last_edu_place_ids[]" value="1" /> <label for="last_edu_place_1">Dalam negeri</label>
-    </div>
-    <div>
-      <input type="checkbox" id="last_edu_place_2" name="last_edu_place_ids[]" value="2" /> <label for="last_edu_place_2">Luar negeri</label>
-    </div>
-  </div>
-
-  <div class="field">
-    <p>Anggota legislatif 09-14</p>
-    <div>
-      <input type="checkbox" id="is_member_1" name="is_member[]" value="1"> <label for="is_member_1">Ya</label>
-    </div>
-    <div>
-      <input type="checkbox" id="is_member_2" name="is_member[]" value="2"> <label for="is_member_2">Tidak</label>
-    </div>
-  </div>
 </form>
 
-<div class="results">
-  <h2>Ditemukan 200 Caleg</h2>
+<div ng-show="fetchPeopleState == 'loading'">
+  Memuat...
 </div>
 
-<div class="people">
-  <% 10.times do %>
-    <div class="person">
-      <div class="person-name">
-        Ki Hajar Dewantara
-      </div>
-      <div class="person-details">
-        <div class="person-image">
-          <a href="#">
-            <img src="" alt="Foto" />
-          </a>
-        </div>
-        <div class="person-info">
-          <div class="person-info-row">
-            Pendidikan Terakhir
-          </div>
-          <div class="person-info-row">
-            Latar Belakang
-          </div>
-          <div class="person-info-row">
-            Fakta Menarik
-          </div>
-          <div class="person-info-row">
-            Fakta Menarik 2
-          </div>
-          <a href="#">Info lebih lanjut...</a>
-        </div>
-      </div>
+<div class="results" ng-show="fetchPeopleState == 'success'">
+  <h2>Ditemukan {{ peopleCount }} Caleg - Halaman {{ currentPage }} dari {{ pageCount }}</h2>
+</div>
 
-      <div class="person-votes">
-        <a href="#" class="btn-like">Suka (101)</a>
-        <a href="#" class="btn-dislike">Tak suka (30)</a>
+<div class="people" ng-show="fetchPeopleState == 'success'">
+  <div class="person" ng-repeat="person in people">
+    <div class="person-name">
+      {{ person.nama }}
+    </div>
+    <div class="person-details">
+      <div class="person-image">
+        <a href="#">
+          <img src="{{ person.foto_url }}" alt="Foto {{ person.nama }}" />
+        </a>
+      </div>
+      <div class="person-info">
+        <div class="person-info-row">
+          Pendidikan Terakhir
+        </div>
+        <div class="person-info-row">
+          Latar Belakang
+        </div>
+        <div class="person-info-row">
+          Fakta Menarik
+        </div>
+        <div class="person-info-row">
+          Fakta Menarik 2
+        </div>
+        <a href="#">Info lebih lanjut...</a>
       </div>
     </div>
-  <% end %>
+
+    <div class="person-votes">
+      <a href="#" class="btn-like">
+        <img src="assets/img/btn-like.png" />
+        Suka (101)
+      </a>
+      <a href="#" class="btn-dislike">
+        <img src="assets/img/btn-dislike.png" />
+        Tak suka (30)
+      </a>
+    </div>
+  </div>
 </div>
 
-<div class="pagination">
-  Pages:
-  <% 10.times do |i| %>
-    <a href=# class="page">
-      <%= i + 1 %>
-    </a>
-  <% end %>
+<div class="pagination" ng-show="fetchPeopleState == 'success'">
+  Halaman:
+  <select name="page" ng-model="currentPage" id="page" ng-change="goToPage(i)">
+    <option value="{{ i }}" ng-repeat="i in pages(pageCount)">
+      {{ i }}
+    </option>
+  </select>
 </div>
