@@ -98,7 +98,7 @@ window.app = angular.module('miApp', []);
         {
           headingName: "Partai",
           inputPrefix: "party_",
-          inputName: "partai",
+          inputName: "party_ids[]",
           choices: [
             {label: 'Memuat...', value: '-'}
           ]
