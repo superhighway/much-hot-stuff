@@ -54,6 +54,10 @@
   Memuat...
 </div>
 
+<div ng-show="fetchPeopleState == 'error'">
+  Gagal memuat. Harap refresh browser Anda.
+</div>
+
 <div class="results" ng-show="fetchPeopleState == 'success'">
   <h2>
     {{ peopleCount }} Caleg - Halaman
