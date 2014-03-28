@@ -80,11 +80,25 @@ window.app = angular.module('miApp', []);
 
   app.controller("PeopleController", ['$scope', 'clientService', '$filter',
     function($scope, clientService, $filter) {
+      $scope.districts = [
+        { label: "Dapil Jakarta 1", value: 1 },
+        { label: "Dapil Jakarta 2", value: 2 },
+        { label: "Dapil Jakarta 3", value: 3 },
+      ];
       $scope.filters = [
+        {
+          headingName: "Umur",
+          inputPrefix: "age_",
+          inputName: "age",
+          choices: [
+            { label: '20-30', value: '30' },
+            { label: '30-40', value: '40' }
+          ]
+        },
         {
           headingName: "Partai",
           inputPrefix: "party_",
-          inputName: "party_ids[]",
+          inputName: "partai",
           choices: [
             {label: 'Memuat...', value: '-'}
           ]
@@ -163,27 +177,15 @@ window.app = angular.module('miApp', []);
           value: party.id
         };
       };
+      var partyIndex = 1;
       clientService.parties().success(function(data) {
         var choices = [];
         var list = data.data.results.partai, listN = list.length;
         for (var i = 0; i < listN; i++) {
           choices.push(partyAsFilterItem(list[i]));
         };
-        $scope.filters[0].choices = choices;
+        $scope.filters[partyIndex].choices = choices;
       });
-
-      var districtAsFilterItem = function(district) {
-        return {
-          label: district.nama,
-          value: district.id
-        };
-      };
-
-      /*
-      clientService.districts().success(function(data) {
-        $scope.districts = data.data.results.dapil;
-      });
-      */
     }
   ]);
 })(window);

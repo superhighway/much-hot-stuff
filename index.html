@@ -23,13 +23,12 @@
         
 
         <div class="body-wrap" ng-controller='PeopleController'>
-          <h1>Filter...</h1>
           <form class="filters">
-  <div class="field">
+  <div>
     <p>Dapil</p>
     <select name="dapil" id="dapil">
-      <option value="{{ district.id }}" ng-repeat="district in districts">
-        {{ district.nama }}
+      <option value="{{ district.value }}" ng-repeat="district in districts">
+        {{ district.label }}
       </option>
     </select>
   </div>
@@ -46,9 +45,6 @@
       <label for="{{ choice.inputPrefix }}{{ choice.value }}">
         {{choice.label}}
       </label>
-    </div>
-    <div>
-      <a href="#">Semua</a>
     </div>
   </div>
 
@@ -118,12 +114,6 @@
         <script>window.angular || document.write('<script src="/assets/js/angular-1.2.15.min.js"><\/script>')</script>
         <script src="assets/js/all.js"></script>
 
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+
     </body>
 </html>
