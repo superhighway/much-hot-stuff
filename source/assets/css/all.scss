@@ -68,10 +68,11 @@ body {
 
 .person-info {
   @include inline-block-top;
+  width: 240px;
 }
 
 .person-info-row {
-
+  margin-bottom: 0.8em;
 }
 
 .btn-dislike, .btn-like, .btn-info {
