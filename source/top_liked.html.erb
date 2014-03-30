@@ -1,0 +1,31 @@
+---
+controller: "TopLikedPeopleController"
+---
+
+<div class="people" ng-show="fetchPeopleState == 'success'">
+  <div class="person" ng-repeat="person in people">
+    <div class="person-name">
+      {{ person.name }}
+    </div>
+    <div class="person-details">
+      <div class="person-image">
+        <a href="{{ person.cv_url }}" target="_blank">
+          <img src="{{ person.photo }}" alt="{{ person.nama }}" />
+        </a>
+      </div>
+    </div>
+
+    <div class="person-votes">
+      <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonId(person.id) }}">
+        <img src="assets/img/btn-like.png" />
+        Suka ({{ person.like_count }})
+      </a>
+      <%#
+      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonId(person.id) }}">
+        <img src="assets/img/btn-dislike.png" />
+        Tak suka ({{ person.dislike_count }})
+      </a>
+      #%>
+    </div>
+  </div>
+</div>
