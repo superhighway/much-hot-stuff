@@ -116,8 +116,8 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
           inputPrefix: "is_member_",
           inputName: "is_member[]",
           choices: [
-            {label: 'Ya', value: '0'},
-            {label: 'Tidak', value: '1'}
+            {label: 'Ya', value: '1'},
+            {label: 'Tidak', value: '0'}
           ]
         }
       ];
