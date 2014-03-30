@@ -64,6 +64,9 @@ controller: "PeopleController"
       </div>
       <div class="person-info">
         <div class="person-info-row">
+          Nomor Urut {{ person.seq_no }}, {{ person.party.name }}
+        </div>
+        <div class="person-info-row">
           {{ person.education_kind.name }} -- 
           {{ person.university }}
         </div>
