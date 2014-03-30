@@ -106,7 +106,10 @@
         <img src="assets/img/btn-like.png" />
         Suka ({{ person.like_count }})
       </a>
-      
+      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonId(person.id) }}">
+        <img src="assets/img/btn-dislike.png" />
+        Tak suka ({{ person.dislike_count }})
+      </a>
     </div>
   </div>
 </div>
