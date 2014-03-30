@@ -60,7 +60,7 @@ window.app = angular.module('miApp', []);
         {
           headingName: "Umur",
           inputPrefix: "age_range_",
-          inputName: "age_range_ids",
+          inputName: "age_range_ids[]",
           choices: [
             { label: '21-30', value: '1' },
             { label: '31-40', value: '2' },
@@ -85,8 +85,7 @@ window.app = angular.module('miApp', []);
             {label: 'S1', value: '1'},
             {label: 'S2', value: '2'},
             {label: 'S3', value: '3'},
-            {label: '< S1', value: '4'},
-            {label: 'N/A', value: '5'}
+            {label: '< S1', value: '4'}
           ]
         },
         {
@@ -103,8 +102,8 @@ window.app = angular.module('miApp', []);
           inputPrefix: "is_member_",
           inputName: "is_member[]",
           choices: [
-            {label: 'Ya', value: '1'},
-            {label: 'Tidak', value: '2'}
+            {label: 'Ya', value: '0'},
+            {label: 'Tidak', value: '1'}
           ]
         }
       ];
@@ -125,9 +124,27 @@ window.app = angular.module('miApp', []);
         });
       };
 
+      $scope.toggleFilterSelection = function(inputName, value) {
+        var selection = $scope.filterParams[inputName];
+        var idx = selection.indexOf(value);
+
+        if (idx > -1) { // is currently selected
+          selection.splice(idx, 1);
+        } else { // is newly selected
+          selection.push(value);
+        }
+        $scope.filterParams[inputName] = selection;
+        console.log(selection);
+        $scope.refetchPeople();
+      }
+
       $scope.fetchPeopleState = "loading";
       $scope.filterParams = {
-        district_id: 1
+        district_id: 1,
+        "age_range_ids[]": [],
+        "party_ids[]": [],
+        "education_place_ids[]": [],
+        "education_kind_ids[]": []
       };
       $scope.page = {
         current: 1,

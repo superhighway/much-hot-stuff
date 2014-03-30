@@ -42,7 +42,8 @@
              id="{{ choice.inputPrefix }}{{ choice.value }}"
              name="{{ choice.inputName }}"
              value="{{ party.value }}"
-             ng-change="refetchPeople()" />
+             ng-checked="filterParams.selection[choice.inputName].indexOf(choice) > -1"
+             ng-click="toggleFilterSelection(filter.inputName, choice.value)" />
       <label for="{{ choice.inputPrefix }}{{ choice.value }}">
         {{choice.label}}
       </label>
