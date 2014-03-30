@@ -76,6 +76,7 @@ body {
 }
 
 .btn-dislike, .btn-like, .btn-info {
+  background: #555;
   display: inline-block;
   color: #fff;
   padding: 0.5em 1em;
@@ -89,25 +90,28 @@ body {
 }
 
 .btn-like {
-  background: #1abc9c;
-
   img {
     top: 3px;
   }
-
   &:hover {
-    background: darken(#1abc9c, 10%);
+    background: #1abc9c;
   }
 }
 
 .btn-dislike {
-  background: #e74c3c;
-
   img {
     top: 4px;
   }
-
   &:hover {
-    background: darken(#e74c3c, 10%);
+    background: #e74c3c;
   }
 }
+
+.btn-liked {
+  background: #1abc9c !important;
+}
+
+.btn-disliked {
+  background: #e74c3c !important;
+}
+

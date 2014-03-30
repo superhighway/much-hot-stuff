@@ -1,4 +1,4 @@
-window.app = angular.module('miApp', []);
+window.app = angular.module('miApp', ['LocalStorageModule']);
 
 (function(w) {
   app.service("clientService", function($http) {
@@ -38,6 +38,20 @@ window.app = angular.module('miApp', []);
         params: paramsWithDefaults(params)
       });
     };
+    this.likePerson = function(personId) {
+      var url = listApiUrl("/candidates/" + personId + "/like.json");
+      return $http({
+        url: url,
+        method: "POST"
+      });
+    };
+    this.dislikePerson = function(personId) {
+      var url = listApiUrl("/candidates/" + personId + "/dislike.json");
+      return $http({
+        url: url,
+        method: "POST"
+      });
+    };
     this.districts = function(params) {
       var url = listApiUrl("/districts.json");
       return $http({
@@ -49,8 +63,8 @@ window.app = angular.module('miApp', []);
   });
 
 
-  app.controller("PeopleController", ['$scope', 'clientService', '$filter',
-    function($scope, clientService, $filter) {
+  app.controller("PeopleController", ['$scope', 'clientService', '$filter', 'localStorageService',
+    function($scope, clientService, $filter, localStorageService) {
       $scope.districts = [
         { label: "Jakarta 1", value: 1 },
         { label: "Jakarta 2", value: 2 },
@@ -60,7 +74,7 @@ window.app = angular.module('miApp', []);
         {
           headingName: "Umur",
           inputPrefix: "age_range_",
-          inputName: "age_range_ids",
+          inputName: "age_range_ids[]",
           choices: [
             { label: '21-30', value: '1' },
             { label: '31-40', value: '2' },
@@ -84,8 +98,8 @@ window.app = angular.module('miApp', []);
           choices: [
             {label: 'S1', value: '1'},
             {label: 'S2', value: '2'},
-            {label: '< S1', value: '3'},
-            {label: 'N/A', value: '4'}
+            {label: 'S3', value: '3'},
+            {label: '< S1', value: '4'}
           ]
         },
         {
@@ -102,8 +116,8 @@ window.app = angular.module('miApp', []);
           inputPrefix: "is_member_",
           inputName: "is_member[]",
           choices: [
-            {label: 'Ya', value: '1'},
-            {label: 'Tidak', value: '2'}
+            {label: 'Ya', value: '0'},
+            {label: 'Tidak', value: '1'}
           ]
         }
       ];
@@ -124,19 +138,46 @@ window.app = angular.module('miApp', []);
         });
       };
 
-      $scope.goToPage = function(i) {
-        var params = { page: $scope.page.current };
-        console.log(params);
-        fetchPeople(params);
-      };
-      fetchPeople({});
+      $scope.toggleFilterSelection = function(inputName, value) {
+        var selection = $scope.filterParams[inputName];
+        var idx = selection.indexOf(value);
+
+        if (idx > -1) { // is currently selected
+          selection.splice(idx, 1);
+        } else { // is newly selected
+          selection.push(value);
+        }
+        $scope.filterParams[inputName] = selection;
+        console.log(selection);
+        $scope.refetchPeople();
+      }
 
       $scope.fetchPeopleState = "loading";
+      $scope.filterParams = {
+        district_id: 1,
+        "is_member[]": [],
+        "age_range_ids[]": [],
+        "party_ids[]": [],
+        "education_place_ids[]": [],
+        "education_kind_ids[]": []
+      };
       $scope.page = {
         current: 1,
         total: 0,
         per_page: 20
       };
+
+      $scope.goToCurrentPage = function() {
+        var params = { page: $scope.page.current };
+        angular.extend(params, $scope.filterParams);
+        fetchPeople(params);
+      };
+
+      $scope.refetchPeople = function() {
+        $scope.page.current = 1;
+        $scope.goToCurrentPage();
+      };
+      $scope.refetchPeople();
 
       $scope.peopleCount = 0;
       $scope.people = [];
@@ -147,6 +188,55 @@ window.app = angular.module('miApp', []);
         }
         return arr;
       };
+      $scope.likePersonAtIndex = function(i) {
+        var personId = $scope.people[i].id;
+        if ($scope.hasVotedPersonId(personId)) {
+          return;
+        }
+
+        var key = 'mi_liked_' + personId;
+        localStorageService.add(key, true);
+        clientService.likePerson(personId).success(function(data) {
+          $scope.people[i] = data;
+        });
+      };
+      $scope.dislikePersonAtIndex = function(i) {
+        var personId = $scope.people[i].id;
+        if ($scope.hasVotedPersonId(personId)) {
+          return;
+        }
+
+        var key = 'mi_disliked_' + personId;
+        localStorageService.add(key, true);
+        clientService.dislikePerson(personId).success(function(data) {
+          $scope.people[i] = data;
+        });
+      };
+      $scope.hasLikedPersonId = function(personId) {
+        var key = 'mi_liked_' + personId;
+        var existing = localStorageService.get(key);
+        return existing == true || existing == 'true';
+      };
+      $scope.hasDislikedPersonId = function(personId) {
+        var key = 'mi_disliked_' + personId;
+        var existing = localStorageService.get(key);
+        return existing == true || existing == 'true';
+      };
+      $scope.hasVotedPersonId = function(personId) {
+        return $scope.hasLikedPersonId(personId) || $scope.hasDislikedPersonId(personId);
+      };
+      $scope.likeButtonClassForPersonId = function(personId) {
+        if ($scope.hasLikedPersonId(personId)) {
+          return 'btn-like btn-liked';
+        }
+        return 'btn-like';
+      }
+      $scope.dislikeButtonClassForPersonId = function(personId) {
+        if ($scope.hasDislikedPersonId(personId)) {
+          return 'btn-dislike btn-disliked';
+        }
+        return 'btn-dislike';
+      }
 
       var partyAsFilterItem = function(party) {
         return {
