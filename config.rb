@@ -41,18 +41,9 @@
 
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
-activate :directory_indexes
+# activate :directory_indexes
 
 # Methods defined in the helpers block are available in templates
-helpers do
-  def sidebar_content sidebar
-    if sidebar && sidebar.size > 0
-      sidebar
-    else
-      nil
-    end
-  end
-end
 
 set :css_dir, 'assets/css'
 set :js_dir, 'assets/js'
