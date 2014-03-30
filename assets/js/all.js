@@ -1,4 +1,4 @@
-window.app = angular.module('miApp', []);
+window.app = angular.module('miApp', ['LocalStorageModule']);
 
 (function(w) {
   app.service("clientService", function($http) {
@@ -38,6 +38,20 @@ window.app = angular.module('miApp', []);
         params: paramsWithDefaults(params)
       });
     };
+    this.likePerson = function(personId) {
+      var url = listApiUrl("/candidates/" + personId + "/like.json");
+      return $http({
+        url: url,
+        method: "POST"
+      });
+    };
+    this.dislikePerson = function(personId) {
+      var url = listApiUrl("/candidates/" + personId + "/dislike.json");
+      return $http({
+        url: url,
+        method: "POST"
+      });
+    };
     this.districts = function(params) {
       var url = listApiUrl("/districts.json");
       return $http({
@@ -49,8 +63,8 @@ window.app = angular.module('miApp', []);
   });
 
 
-  app.controller("PeopleController", ['$scope', 'clientService', '$filter',
-    function($scope, clientService, $filter) {
+  app.controller("PeopleController", ['$scope', 'clientService', '$filter', 'localStorageService',
+    function($scope, clientService, $filter, localStorageService) {
       $scope.districts = [
         { label: "Jakarta 1", value: 1 },
         { label: "Jakarta 2", value: 2 },
@@ -174,6 +188,55 @@ window.app = angular.module('miApp', []);
         }
         return arr;
       };
+      $scope.likePersonAtIndex = function(i) {
+        var personId = $scope.people[i].id;
+        if ($scope.hasVotedPersonId(personId)) {
+          return;
+        }
+
+        var key = 'mi_liked_' + personId;
+        localStorageService.add(key, true);
+        clientService.likePerson(personId).success(function(data) {
+          $scope.people[i] = data;
+        });
+      };
+      $scope.dislikePersonAtIndex = function(i) {
+        var personId = $scope.people[i].id;
+        if ($scope.hasVotedPersonId(personId)) {
+          return;
+        }
+
+        var key = 'mi_disliked_' + personId;
+        localStorageService.add(key, true);
+        clientService.dislikePerson(personId).success(function(data) {
+          $scope.people[i] = data;
+        });
+      };
+      $scope.hasLikedPersonId = function(personId) {
+        var key = 'mi_liked_' + personId;
+        var existing = localStorageService.get(key);
+        return existing == true || existing == 'true';
+      };
+      $scope.hasDislikedPersonId = function(personId) {
+        var key = 'mi_disliked_' + personId;
+        var existing = localStorageService.get(key);
+        return existing == true || existing == 'true';
+      };
+      $scope.hasVotedPersonId = function(personId) {
+        return $scope.hasLikedPersonId(personId) || $scope.hasDislikedPersonId(personId);
+      };
+      $scope.likeButtonClassForPersonId = function(personId) {
+        if ($scope.hasLikedPersonId(personId)) {
+          return 'btn-like btn-liked';
+        }
+        return 'btn-like';
+      }
+      $scope.dislikeButtonClassForPersonId = function(personId) {
+        if ($scope.hasDislikedPersonId(personId)) {
+          return 'btn-dislike btn-disliked';
+        }
+        return 'btn-dislike';
+      }
 
       var partyAsFilterItem = function(party) {
         return {
