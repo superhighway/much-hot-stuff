@@ -3,8 +3,8 @@ window.app = angular.module('miApp', []);
 (function(w) {
   app.service("clientService", function($http) {
     var protocol = "http://",
-        hostName = "localhost:3000",
-        // hostName = "mini-game-api.herokuapp.com",
+        // hostName = "localhost:3000",
+        hostName = "mini-game-api.herokuapp.com",
         basePath = "",
         defaultParams = {
           per_page: 20
