@@ -3,8 +3,8 @@ window.app = angular.module('miApp', []);
 (function(w) {
   app.service("clientService", function($http) {
     var protocol = "http://",
-        // hostName = "localhost:3000",
-        hostName = "mini-game-api.herokuapp.com",
+        hostName = "localhost:3000",
+        // hostName = "mini-game-api.herokuapp.com",
         basePath = "",
         defaultParams = {
           per_page: 20
@@ -84,8 +84,9 @@ window.app = angular.module('miApp', []);
           choices: [
             {label: 'S1', value: '1'},
             {label: 'S2', value: '2'},
-            {label: '< S1', value: '3'},
-            {label: 'N/A', value: '4'}
+            {label: 'S3', value: '3'},
+            {label: '< S1', value: '4'},
+            {label: 'N/A', value: '5'}
           ]
         },
         {
@@ -124,19 +125,27 @@ window.app = angular.module('miApp', []);
         });
       };
 
-      $scope.goToPage = function(i) {
-        var params = { page: $scope.page.current };
-        console.log(params);
-        fetchPeople(params);
-      };
-      fetchPeople({});
-
       $scope.fetchPeopleState = "loading";
+      $scope.filterParams = {
+        district_id: 1
+      };
       $scope.page = {
         current: 1,
         total: 0,
         per_page: 20
       };
+
+      $scope.goToCurrentPage = function() {
+        var params = { page: $scope.page.current };
+        angular.extend(params, $scope.filterParams);
+        fetchPeople(params);
+      };
+
+      $scope.refetchPeople = function() {
+        $scope.page.current = 1;
+        $scope.goToCurrentPage();
+      };
+      $scope.refetchPeople();
 
       $scope.peopleCount = 0;
       $scope.people = [];

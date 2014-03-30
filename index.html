@@ -26,7 +26,7 @@
           <form class="filters">
   <div style="margin-bottom: 1.3em;">
     <p>Dapil</p>
-    <select name="district_id" id="district_id">
+    <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
       <option value="{{ district.value }}" ng-repeat="district in districts">
         {{ district.label }}
       </option>
@@ -41,7 +41,8 @@
       <input type="checkbox"
              id="{{ choice.inputPrefix }}{{ choice.value }}"
              name="{{ choice.inputName }}"
-             value="{{ party.value }}" />
+             value="{{ party.value }}"
+             ng-change="refetchPeople()" />
       <label for="{{ choice.inputPrefix }}{{ choice.value }}">
         {{choice.label}}
       </label>
@@ -61,7 +62,7 @@
 <div class="results" ng-show="fetchPeopleState == 'success'">
   <h2>
     {{ peopleCount }} Caleg - Halaman
-    <select name="page" ng-model="page.current" ng-change="goToPage(i)">
+    <select name="page" ng-model="page.current" ng-change="goToCurrentPage()">
       <option value="{{ i }}" ng-repeat="i in pages(page.total)">
         {{ i }}
       </option>
@@ -115,7 +116,7 @@
 <div class="results" ng-show="fetchPeopleState == 'success'">
   <h2>
     {{ peopleCount }} Caleg - Halaman
-    <select name="page" ng-model="page.current" ng-change="goToPage(i)">
+    <select name="page" ng-model="page.current" ng-change="goToCurrentPage(i)">
       <option value="{{ i }}" ng-repeat="i in pages(page.total)">
         {{ i }}
       </option>
