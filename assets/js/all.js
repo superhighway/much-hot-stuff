@@ -141,6 +141,7 @@ window.app = angular.module('miApp', []);
       $scope.fetchPeopleState = "loading";
       $scope.filterParams = {
         district_id: 1,
+        "is_member[]": [],
         "age_range_ids[]": [],
         "party_ids[]": [],
         "education_place_ids[]": [],
