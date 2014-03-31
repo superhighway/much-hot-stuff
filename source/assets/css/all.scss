@@ -65,8 +65,13 @@ body {
   @include border-radius(3px);
 }
 
+.top-people-heading {
+  text-align: center;
+}
+
 .top-person {
   width: 130px;
+  text-align: center;
 }
 
 .person {
