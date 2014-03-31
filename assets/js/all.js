@@ -260,6 +260,16 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
   app.controller("TopLikedPeopleController", ['$scope', 'clientService', 'localStorageService',
     function($scope, clientService, localStorageService) {
+      $scope.districts = [
+        { label: "Dapil Jakarta 1", value: 1 },
+        { label: "Dapil Jakarta 2", value: 2 },
+        { label: "Dapil Jakarta 3", value: 3 },
+      ];
+
+      $scope.filterParams = {
+        district_id: 1
+      };
+
       var fetchPeople = function(params) {
         $scope.fetchPeopleState = "loading";
         clientService.people(params).success(function(data) {
@@ -276,7 +286,9 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       $scope.fetchPeopleState = "loading";
       $scope.refetchPeople = function() {
-        fetchPeople({per_page: 5, sort: "-like_count"});
+        var params = {per_page: 5, sort: "-like_count"};
+        angular.extend(params, $scope.filterParams);
+        fetchPeople(params);
       };
 
       $scope.refetchPeople();
