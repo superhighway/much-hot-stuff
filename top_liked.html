@@ -23,27 +23,29 @@
         
 
         <div class="body-wrap" ng-controller='TopLikedPeopleController'>
-          <div class="people" ng-show="fetchPeopleState == 'success'">
-  <div class="person" ng-repeat="person in people">
-    <div class="person-name">
+          <div class="top-people" ng-show="fetchPeopleState == 'success'">
+  <div class="top-person" style="text-align: center;" ng-repeat="person in people">
+    <div class="top-person-image">
+      <img src="{{ person.photo_url }}" />
+    </div>
+    <div class="top-person-name">
       {{ person.name }}
     </div>
-    <div class="person-details">
-      <div class="person-image">
-        <a href="{{ person.cv_url }}" target="_blank">
-          <img src="{{ person.photo }}" alt="{{ person.nama }}" />
-        </a>
+    <div class="top-person-party">
+      <div>
+        {{ person.party.name }}
+      </div>
+      <div>
+        Nomor Urut {{ person.seq_no }}
       </div>
     </div>
 
     <div class="person-votes">
       <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonId(person.id) }}">
-        <img src="assets/img/btn-like.png" />
-        Suka ({{ person.like_count }})
+        <img src="assets/img/btn-like.png" /> {{ person.like_count }}
       </a>
       <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonId(person.id) }}">
-        <img src="assets/img/btn-dislike.png" />
-        Tak suka ({{ person.dislike_count }})
+        <img src="assets/img/btn-dislike.png" /> {{ person.dislike_count }}
       </a>
     </div>
   </div>
