@@ -17,7 +17,9 @@ controller: "TopLikedPeopleController"
 <div class="top-people" style="text-align: center;" ng-show="fetchPeopleState == 'success'">
   <div class="top-person" ng-repeat="person in people">
     <div class="top-person-image">
-      <img src="{{ person.photo_url }}" />
+      <a href="{{ person.cv_url }}" target="_blank">
+        <img src="{{ person.photo_url }}" />
+      </a>
     </div>
     <div class="top-person-name">
       {{ person.name }}
