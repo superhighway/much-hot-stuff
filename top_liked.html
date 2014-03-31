@@ -23,15 +23,19 @@
         
 
         <div class="body-wrap" ng-controller='TopLikedPeopleController'>
-          <div class="top-people" ng-show="fetchPeopleState == 'success'">
-  <div class="top-people-heading">
-    <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
-      <option value="{{ district.value }}" ng-repeat="district in districts">
-        {{ district.label }}
-      </option>
-    </select>
-    <p>Caleg DPR RI yang paling disukai hingga saat ini:</p>
+          <div class="top-people-heading">
+  <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
+    <option value="{{ district.value }}" ng-repeat="district in districts">
+      {{ district.label }}
+    </option>
+  </select>
+  <p>Caleg DPR RI yang paling disukai hingga saat ini:</p>
+  <div ng-show="fetchPeopleState == 'loading'">
+    Memuat...
   </div>
+</div>
+
+<div class="top-people" style="text-align: center;" ng-show="fetchPeopleState == 'success'">
   <div class="top-person" ng-repeat="person in people">
     <div class="top-person-image">
       <img src="{{ person.photo_url }}" />
