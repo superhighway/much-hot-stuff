@@ -35,15 +35,45 @@ body {
   }
 }
 
-.person {
+.top-person-image {
+  height: 120px;
+  overflow: hidden;
+  margin-bottom: 0.3em;
+
+  img {
+    width: 100px;
+    overflow: hidden;
+  }
+}
+
+.top-person-party {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 0.6em;
+}
+
+.top-person-name {
+  margin-bottom: 0.5em;
+}
+
+.top-person, .person {
   @include inline-block-top;
-  width: 400px;
   margin: 0 0.8em 1em 0;
   padding: 1em;
   border: 1px solid #bbb;
   @include box-shadow(0 2px 1px #ddd);
   @include border-radius(3px);
 }
+
+.top-person {
+  width: 130px;
+}
+
+.person {
+  width: 400px;
+}
+
+
 
 .person-details {
   margin-bottom: 0.7em;
@@ -86,6 +116,12 @@ body {
     height: 20px;
     padding-right: 0.2em;
     position: relative;
+  }
+}
+
+.top-people {
+  .btn-dislike, .btn-like, .btn-info {
+    padding: 0.3em 0.6em;
   }
 }
 
