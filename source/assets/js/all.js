@@ -267,7 +267,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
       ];
 
       $scope.filterParams = {
-        district_id: 1
+        district_id: Math.floor(Math.random() * 3) + 1
       };
 
       var fetchPeople = function(params) {

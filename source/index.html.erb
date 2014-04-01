@@ -4,7 +4,6 @@ controller: "PeopleController"
 
 <form class="filters">
   <div style="margin-bottom: 1.3em;">
-    <p>Dapil</p>
     <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
       <option value="{{ district.value }}" ng-repeat="district in districts">
         {{ district.label }}
