@@ -25,7 +25,7 @@
         <div class="body-wrap" ng-controller='TopLikedPeopleController'>
           <div class="top-people-heading">
   <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
-    <option value="{{ district.value }}" ng-repeat="district in districts">
+    <option value="{{ district.value }}" ng-repeat="district in districts" ng-selected="{{ district.value == filterParams.district_id }}">
       {{ district.label }}
     </option>
   </select>
