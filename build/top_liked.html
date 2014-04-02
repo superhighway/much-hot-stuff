@@ -6,8 +6,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <!-- Use title if it's in the page YAML frontmatter -->
-        <title>Mini Game</title>
+
+        <title>Maju Indonesia</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -55,10 +55,10 @@
     </div>
 
     <div class="person-votes">
-      <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonId(person.id) }}">
+      <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonAtIndex($index) }}">
         <img src="assets/img/btn-like.png" /> {{ person.like_count }}
       </a>
-      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonId(person.id) }}">
+      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonAtIndex($index) }}">
         <img src="assets/img/btn-dislike.png" /> {{ person.dislike_count }}
       </a>
     </div>
@@ -71,7 +71,6 @@
         <script>window.angular || document.write('<script src="/assets/js/angular-1.2.15.min.js"><\/script>')</script>
         <script src="assets/js/angular-local-storage.min.js"></script>
         <script src="assets/js/all.js"></script>
-
-
+        <script src="assets/js/iframeResizer.contentWindow.min.js"></script>
     </body>
 </html>

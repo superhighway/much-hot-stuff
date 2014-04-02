@@ -207,8 +207,9 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       // Like/Dislike
       $scope.likePersonAtIndex = function(i) {
-        var personId = $scope.people[i].id;
-        if ($scope.hasVotedPersonId(personId)) {
+        var person = $scope.people[i];
+        var personId = person.id;
+        if (person.vote != 0 || $scope.hasVotedPersonId(personId)) {
           return;
         }
 
@@ -219,8 +220,9 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
         });
       };
       $scope.dislikePersonAtIndex = function(i) {
-        var personId = $scope.people[i].id;
-        if ($scope.hasVotedPersonId(personId)) {
+        var person = $scope.people[i];
+        var personId = person.id;
+        if (person.vote != 0 || $scope.hasVotedPersonId(personId)) {
           return;
         }
 
@@ -243,14 +245,16 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
       $scope.hasVotedPersonId = function(personId) {
         return $scope.hasLikedPersonId(personId) || $scope.hasDislikedPersonId(personId);
       };
-      $scope.likeButtonClassForPersonId = function(personId) {
-        if ($scope.hasLikedPersonId(personId)) {
+      $scope.likeButtonClassForPersonAtIndex = function(i) {
+        var person = $scope.people[i];
+        if (person.vote == 1 || $scope.hasLikedPersonId(person.id)) {
           return 'btn-like btn-liked';
         }
         return 'btn-like';
       }
-      $scope.dislikeButtonClassForPersonId = function(personId) {
-        if ($scope.hasDislikedPersonId(personId)) {
+      $scope.dislikeButtonClassForPersonAtIndex = function(i) {
+        var person = $scope.people[i];
+        if (person.vote == -1 || $scope.hasDislikedPersonId(person.id)) {
           return 'btn-dislike btn-disliked';
         }
         return 'btn-dislike';
@@ -298,7 +302,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
       // Like/Dislike
       $scope.likePersonAtIndex = function(i) {
         var personId = $scope.people[i].id;
-        if ($scope.hasVotedPersonId(personId)) {
+        if (person.vote != 0 || $scope.hasVotedPersonId(personId)) {
           return;
         }
 
@@ -309,8 +313,9 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
         });
       };
       $scope.dislikePersonAtIndex = function(i) {
-        var personId = $scope.people[i].id;
-        if ($scope.hasVotedPersonId(personId)) {
+        var person = $scope.people[i];
+        var personId = person.id;
+        if (person.vote != 0 || $scope.hasVotedPersonId(personId)) {
           return;
         }
 
@@ -333,14 +338,16 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
       $scope.hasVotedPersonId = function(personId) {
         return $scope.hasLikedPersonId(personId) || $scope.hasDislikedPersonId(personId);
       };
-      $scope.likeButtonClassForPersonId = function(personId) {
-        if ($scope.hasLikedPersonId(personId)) {
+      $scope.likeButtonClassForPersonAtIndex = function(i) {
+        var person = $scope.people[i];
+        if (person.vote == 1 || $scope.hasLikedPersonId(person.id)) {
           return 'btn-like btn-liked';
         }
         return 'btn-like';
       }
-      $scope.dislikeButtonClassForPersonId = function(personId) {
-        if ($scope.hasDislikedPersonId(personId)) {
+      $scope.dislikeButtonClassForPersonAtIndex = function(i) {
+        var person = $scope.people[i];
+        if (person.vote == -1 || $scope.hasDislikedPersonId(person.id)) {
           return 'btn-dislike btn-disliked';
         }
         return 'btn-dislike';
