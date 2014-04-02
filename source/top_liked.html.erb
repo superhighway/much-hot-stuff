@@ -34,10 +34,10 @@ controller: "TopLikedPeopleController"
     </div>
 
     <div class="person-votes">
-      <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonId(person.id) }}">
+      <a href="javascript:void(0);" ng-click="likePersonAtIndex($index)" class="{{ likeButtonClassForPersonAtIndex($index) }}">
         <img src="assets/img/btn-like.png" /> {{ person.like_count }}
       </a>
-      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonId(person.id) }}">
+      <a href="javascript:void(0);" ng-click="dislikePersonAtIndex($index)" class="{{ dislikeButtonClassForPersonAtIndex($index) }}">
         <img src="assets/img/btn-dislike.png" /> {{ person.dislike_count }}
       </a>
     </div>
