@@ -162,9 +162,19 @@ body {
 
 @media screen and (max-width: 464px) {
   .person {
-    width: 300px;
+    width: 100%;
   }
   .person-info {
     width: auto;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .person {
+    width: 80%;
+  }
+  .btn-like, .btn-dislike {
+    padding: 0.5em 0.6em;
+    font-size: 0.8em;
   }
 }
