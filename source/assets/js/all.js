@@ -38,6 +38,14 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
         params: paramsWithDefaults(params)
       });
     };
+    this.top_people = function(params) {
+      var url = listApiUrl("/candidates/top.json");
+      return $http({
+        url: url,
+        method: "GET",
+        params: paramsWithDefaults(params)
+      });
+    };
     this.likePerson = function(personId) {
       var url = listApiUrl("/candidates/" + personId + "/like.json");
       return $http({
@@ -276,7 +284,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       var fetchPeople = function(params) {
         $scope.fetchPeopleState = "loading";
-        clientService.people(params).success(function(data) {
+        clientService.top_people(params).success(function(data) {
           if ($scope.peopleCount == 0) {
             $scope.fetchPeopleState = "success-empty";
           } else {
@@ -290,7 +298,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       $scope.fetchPeopleState = "loading";
       $scope.refetchPeople = function() {
-        var params = {per_page: 5, sort: "vote_count"};
+        var params = {per_page: 5};
         angular.extend(params, $scope.filterParams);
         fetchPeople(params);
       };
