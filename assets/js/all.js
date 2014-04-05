@@ -22,6 +22,14 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
       }
       return p;
     };
+    this.listAPI = function(path, params) {
+      var url = listApiUrl(path);
+      return $http({
+        url: url,
+        method: "GET",
+        params: params
+      });
+    };
     this.parties = function(params) {
       var url = listApiUrl("/parties.json");
       return $http({
@@ -360,6 +368,54 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
         }
         return 'btn-dislike';
       }
+    }
+  ]);
+
+  app.controller("StatsController", ['$scope', 'clientService',
+    function($scope, clientService) {
+      clientService.listAPI('/like_stats/daily.json').success(function(data) {
+        $scope.likeStats = data;
+        var ctx = document.getElementById("like-stats").getContext("2d");
+        var chartData = {
+          labels : data.data.map(function(d) {
+            return moment(d.time).format("MMM Do");
+          }),
+          datasets : [
+            {
+              fillColor : "rgba(151,255,205,0.5)",
+              strokeColor : "rgba(151,255,205,1)",
+              pointColor : "rgba(151,255,205,1)",
+              pointStrokeColor : "#fff",
+              data : data.data.map(function(d) {
+                return d.value;
+              })
+            }
+          ]
+        }
+        $scope.likeStatsChart = new Chart(ctx).Line(chartData);
+      });
+
+      clientService.listAPI('/dislike_stats/daily.json').success(function(data) {
+        $scope.dislikeStats = data;
+        var ctx = document.getElementById("dislike-stats").getContext("2d");
+        var chartData = {
+          labels : data.data.map(function(d) {
+            return moment(d.time).format("MMM Do");
+          }),
+          datasets : [
+            {
+              fillColor : "rgba(255,187,205,0.5)",
+              strokeColor : "rgba(255,187,205,1)",
+              pointColor : "rgba(255,187,205,1)",
+              pointStrokeColor : "#fff",
+              data : data.data.map(function(d) {
+                return d.value;
+              })
+            }
+          ]
+        }
+        $scope.dislikeStatsChart = new Chart(ctx).Line(chartData);
+      });
     }
   ]);
 })(window);
