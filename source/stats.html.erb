@@ -2,11 +2,29 @@
 controller: "StatsController"
 ---
 
-<h3>Daily Likes (Total: {{ likeStats.total_value }})</h3>
-<canvas id="like-stats" width="960" height="360"></canvas>
+<h3>
+  <select name="like_period" id="like_period" ng-model="likeStatsPresenter.period" ng-change="likeStatsPresenter.refetch()">
+    <option value="daily">Daily</option>
+    <option value="hourly">Hourly</option>
+  </select>
+  Likes
+  (Total: {{ likeStatsPresenter.stats.total_value }})
+</h3>
+<div ng-show="likeStatsPresenter.state == 'loading'">Memuat...</div>
+<div ng-show="likeStatsPresenter.state == 'error'">Gagal memuat. Harap coba lagi nanti.</div>
+<canvas id="like-stats" width="960" height="360" ng-show="likeStatsPresenter.state == 'success'"></canvas>
 
-<h3>Daily Dislikes (Total: {{ dislikeStats.total_value }})</h3>
-<canvas id="dislike-stats" width="960" height="360"></canvas>
+<h3>
+  <select name="dislike_period" id="dislike_period" ng-model="dislikeStatsPresenter.period" ng-change="dislikeStatsPresenter.refetch()">
+    <option value="daily">Daily</option>
+    <option value="hourly">Hourly</option>
+  </select>
+  Dislikes
+  (Total: {{ dislikeStatsPresenter.stats.total_value }})
+</h3>
+<div ng-show="dislikeStatsPresenter.state == 'loading'">Memuat...</div>
+<div ng-show="dislikeStatsPresenter.state == 'error'">Gagal memuat. Harap coba lagi nanti.</div>
+<canvas id="dislike-stats" width="960" height="360" ng-show="dislikeStatsPresenter.state == 'success'"></canvas>
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
