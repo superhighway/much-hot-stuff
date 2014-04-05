@@ -381,6 +381,14 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
         self.dateFormat = opts.dateFormat;
         self.chartStyles = opts.chartStyles;
         self.state = "idle";
+        self.displayAs = opts.displayAs;
+
+        self.canDisplayAs = function(displayAs) {
+          return self.state == 'success' && self.displayAs == displayAs;
+        };
+        self.formatDate = function(d) {
+          return moment(d).format(self.dateFormat[self.period]);
+        };
 
         self.refetch = function() {
           self.state = "loading";
@@ -392,7 +400,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
             var ctx = document.getElementById(self.chartElId).getContext("2d");
             var chartData = {
               labels : data.data.map(function(d) {
-                return moment(d.time).format(self.dateFormat[self.period]);
+                return self.formatDate(d.time);
               }),
               datasets : [
                 angular.extend({
@@ -411,6 +419,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       var likeStatsPresenter =
       $scope.likeStatsPresenter = new StatsPresenter({
+        displayAs: "chart",
         period: "daily",
         baseAPIPath: "/like_stats",
         chartElId: "like-stats",
@@ -429,6 +438,7 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
       var dislikeStatsPresenter =
       $scope.dislikeStatsPresenter = new StatsPresenter({
+        displayAs: "chart",
         period: "daily",
         baseAPIPath: "/dislike_stats",
         chartElId: "dislike-stats",
