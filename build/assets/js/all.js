@@ -373,49 +373,87 @@ window.app = angular.module('miApp', ['LocalStorageModule']);
 
   app.controller("StatsController", ['$scope', 'clientService',
     function($scope, clientService) {
-      clientService.listAPI('/like_stats/daily.json').success(function(data) {
-        $scope.likeStats = data;
-        var ctx = document.getElementById("like-stats").getContext("2d");
-        var chartData = {
-          labels : data.data.map(function(d) {
-            return moment(d.time).format("MMM Do");
-          }),
-          datasets : [
-            {
-              fillColor : "rgba(151,255,205,0.5)",
-              strokeColor : "rgba(151,255,205,1)",
-              pointColor : "rgba(151,255,205,1)",
-              pointStrokeColor : "#fff",
-              data : data.data.map(function(d) {
-                return d.value;
-              })
-            }
-          ]
-        }
-        $scope.likeStatsChart = new Chart(ctx).Line(chartData);
-      });
+      function StatsPresenter(opts) {
+        var self = this;
+        self.period = opts.period;
+        self.baseAPIPath = opts.baseAPIPath;
+        self.chartElId = opts.chartElId;
+        self.dateFormat = opts.dateFormat;
+        self.chartStyles = opts.chartStyles;
+        self.state = "idle";
+        self.displayAs = opts.displayAs;
 
-      clientService.listAPI('/dislike_stats/daily.json').success(function(data) {
-        $scope.dislikeStats = data;
-        var ctx = document.getElementById("dislike-stats").getContext("2d");
-        var chartData = {
-          labels : data.data.map(function(d) {
-            return moment(d.time).format("MMM Do");
-          }),
-          datasets : [
-            {
-              fillColor : "rgba(255,187,205,0.5)",
-              strokeColor : "rgba(255,187,205,1)",
-              pointColor : "rgba(255,187,205,1)",
-              pointStrokeColor : "#fff",
-              data : data.data.map(function(d) {
-                return d.value;
-              })
+        self.canDisplayAs = function(displayAs) {
+          return self.state == 'success' && self.displayAs == displayAs;
+        };
+        self.formatDate = function(d) {
+          return moment(d).format(self.dateFormat[self.period]);
+        };
+
+        self.refetch = function() {
+          self.state = "loading";
+          var period = self.period
+          var path = self.baseAPIPath + '/' + period + '.json';
+          return clientService.listAPI(path).success(function(data) {
+            self.stats = data;
+            self.state = 'success';
+            var ctx = document.getElementById(self.chartElId).getContext("2d");
+            var chartData = {
+              labels : data.data.map(function(d) {
+                return self.formatDate(d.time);
+              }),
+              datasets : [
+                angular.extend({
+                  data : data.data.map(function(d) {
+                    return d.value;
+                  })
+                }, self.chartStyles)
+              ]
             }
-          ]
+            self.statsChart = new Chart(ctx).Line(chartData);
+          }).error(function() {
+            self.state = 'error';
+          });
+        };
+      };
+
+      var likeStatsPresenter =
+      $scope.likeStatsPresenter = new StatsPresenter({
+        displayAs: "chart",
+        period: "daily",
+        baseAPIPath: "/like_stats",
+        chartElId: "like-stats",
+        dateFormat: {
+          hourly: "MMM Do H",
+          daily: "MMM Do"
+        },
+        chartStyles: {
+          fillColor : "rgba(151,255,205,0.5)",
+          strokeColor : "rgba(151,255,205,1)",
+          pointColor : "rgba(151,255,205,1)",
+          pointStrokeColor : "#fff"
         }
-        $scope.dislikeStatsChart = new Chart(ctx).Line(chartData);
       });
+      likeStatsPresenter.refetch();
+
+      var dislikeStatsPresenter =
+      $scope.dislikeStatsPresenter = new StatsPresenter({
+        displayAs: "chart",
+        period: "daily",
+        baseAPIPath: "/dislike_stats",
+        chartElId: "dislike-stats",
+        dateFormat: {
+          hourly: "MMM Do H",
+          daily: "MMM Do"
+        },
+        chartStyles: {
+          fillColor : "rgba(255,187,205,0.5)",
+          strokeColor : "rgba(255,187,205,1)",
+          pointColor : "rgba(255,187,205,1)",
+          pointStrokeColor : "#fff"
+        }
+      });
+      dislikeStatsPresenter.refetch();
     }
   ]);
 })(window);

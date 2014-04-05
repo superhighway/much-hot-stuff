@@ -12,10 +12,9 @@
         <meta name="viewport" content="width=device-width">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
         <link rel="stylesheet" href="assets/css/all.css">
     </head>
-    <body ng-app="miApp">
+    <body ng-app="miApp" class="ng-cloak">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -23,11 +22,72 @@
         
 
         <div class="body-wrap" ng-controller='StatsController'>
-          <h3>Daily Likes (Total: {{ likeStats.total_value }})</h3>
-<canvas id="like-stats" width="960" height="360"></canvas>
+          <p>All time is represented in UTC (GMT)</p>
 
-<h3>Daily Dislikes (Total: {{ dislikeStats.total_value }})</h3>
-<canvas id="dislike-stats" width="960" height="360"></canvas>
+<h3>
+  <select name="like_period" id="like_period" ng-model="likeStatsPresenter.period" ng-change="likeStatsPresenter.refetch()">
+    <option value="daily">Daily</option>
+    <option value="hourly">Hourly</option>
+  </select>
+  Likes
+  (Total: {{ likeStatsPresenter.stats.total_value }})
+</h3>
+<h4>
+  Display as
+  <select name="like_display_as" id="like_display_as" ng-model="likeStatsPresenter.displayAs">
+    <option value="chart">Chart</option>
+    <option value="table">Table</option>
+  </select>
+</h4>
+
+<div ng-show="likeStatsPresenter.state == 'loading'">Loading...</div>
+<div ng-show="likeStatsPresenter.state == 'error'">Failed to load. Please try again later.</div>
+
+<canvas id="like-stats" width="960" height="360" ng-show="likeStatsPresenter.canDisplayAs('chart')"></canvas>
+<table class="stats" ng-show="likeStatsPresenter.canDisplayAs('table')">
+  <tr>
+    <th>Time</th>
+    <th>Count</th>
+  </tr>
+  <tr ng-repeat="stat in likeStatsPresenter.stats.data">
+    <td>{{ likeStatsPresenter.formatDate(stat.time) }}</td>
+    <td class="stats-number">{{ stat.value }}</td>
+  </tr>
+</table>
+
+
+<h3>
+  <select name="dislike_period" id="dislike_period" ng-model="dislikeStatsPresenter.period" ng-change="dislikeStatsPresenter.refetch()">
+    <option value="daily">Daily</option>
+    <option value="hourly">Hourly</option>
+  </select>
+  Dislikes
+  (Total: {{ dislikeStatsPresenter.stats.total_value }})
+</h3>
+<h4>
+  Display as
+  <select name="dislike_display_as" id="dislike_display_as" ng-model="dislikeStatsPresenter.displayAs">
+    <option value="chart">Chart</option>
+    <option value="table">Table</option>
+  </select>
+</h4>
+
+<div ng-show="dislikeStatsPresenter.state == 'loading'">Loading...</div>
+<div ng-show="dislikeStatsPresenter.state == 'error'">Failed to load. Please try again later.</div>
+
+<canvas id="dislike-stats" width="960" height="360" ng-show="dislikeStatsPresenter.canDisplayAs('chart')"></canvas>
+<table class="stats" ng-show="dislikeStatsPresenter.canDisplayAs('table')">
+  <tr>
+    <th>Time</th>
+    <th>Count</th>
+  </tr>
+  <tr ng-repeat="stat in dislikeStatsPresenter.stats.data">
+    <td>{{ dislikeStatsPresenter.formatDate(stat.time) }}</td>
+    <td class="stats-number">{{ stat.value }}</td>
+  </tr>
+</table>
+
+
 
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
