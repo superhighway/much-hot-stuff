@@ -23,12 +23,16 @@
 
         <div class="body-wrap" ng-controller='TopLikedPeopleController'>
           <div class="top-people-heading">
+  <p class="top-people-title">Caleg DPR RI terfavorit per partai</p>
+  <p class="top-people-subtitle" >hingga saat ini</p>
+
   <select name="district_id" id="district_id" ng-model="filterParams.district_id" ng-change="refetchPeople()">
     <option value="{{ district.value }}" ng-repeat="district in districts" ng-selected="{{ district.value == filterParams.district_id }}">
       {{ district.label }}
     </option>
   </select>
-  <p style="font-size: 1.3em;">Caleg DPR RI yang paling disukai hingga saat ini untuk tiap partai:</p>
+  <p>
+</p>
   <div ng-show="fetchPeopleState == 'loading'">
     Memuat...
   </div>
