@@ -1,0 +1,12 @@
+---
+controller: "StatsController"
+---
+
+<h3>Daily Likes (Total: {{ likeStats.total_value }})</h3>
+<canvas id="like-stats" width="960" height="360"></canvas>
+
+<h3>Daily Dislikes (Total: {{ dislikeStats.total_value }})</h3>
+<canvas id="dislike-stats" width="960" height="360"></canvas>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
